@@ -1,6 +1,6 @@
 # Risk Tools
 
-Tools for playing competitive, high-level risk efficiently.
+Tools for playing competitive, high-level Risk efficiently.
 
 ### Installation
 
