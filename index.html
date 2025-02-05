@@ -9,107 +9,274 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Risk Tools</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+
       html {
-        color-scheme: light dark;
+        background-color: rgba(18, 18, 18, 1);
+      }
+
+      body {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        place-items: center;
+        padding: 1rem;
+      }
+
+      #map {
+        display: block;
+        inline-size: 100%;
+        max-inline-size: 1024px;
+        aspect-ratio: 1024 / 536;
+        background-image: url("./extracted/textureThumbnail_europeAdvanced.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50%;
+      }
+
+      #capitals {
+        background-color: rgba(255, 255, 255, 0.075);
+        inline-size: 100%;
+        block-size: 100%;
+        padding: 1rem;
+        border-radius: 1rem;
+
+        > div {
+          inline-size: 100%;
+          block-size: 100%;
+          min-block-size: max-content;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+        }
+      }
+
+      .capital {
+        --fill: #00ff00;
+        --stroke: #000000;
+        --stroke-width: 10;
+        inline-size: 50px;
+        translate: var(--x, 0px) var(--y, 0px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        svg {
+          filter: brightness(200%);
+        }
+      }
+
+      .capital[data-color="white"] {
+        --fill: rgba(111, 111, 111, 1);
+      }
+
+      .capital[data-color="black"] {
+        --fill: rgba(34, 34, 34, 1);
+      }
+
+      .capital[data-color="red"] {
+        --fill: rgba(121, 35, 34, 1);
+      }
+
+      .capital[data-color="pink"] {
+        --fill: rgba(114, 39, 92, 1);
+      }
+
+      .capital[data-color="purple"] {
+        --fill: rgba(72, 36, 127, 1);
+      }
+
+      .capital[data-color="blue"] {
+        --fill: rgba(36, 86, 127, 1);
+      }
+
+      .capital[data-color="green"] {
+        --fill: rgba(84, 112, 52, 1);
+      }
+
+      .capital[data-color="yellow"] {
+        --fill: rgba(127, 96, 19, 1);
+      }
+
+      .capital[data-color="orange"] {
+        --fill: rgba(126, 65, 30, 1);
       }
     </style>
   </head>
-  <body></body>
+  <body>
+    <div id="capitals">
+      <div>
+        <div class="capital" data-color="white">
+          <svg viewBox="0 0 278 247.8" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m2.5 9.5v235.8h273v-242.8h-54v43h-52v-43h-58.9v41h-56.1v-41h-52z"
+              fill="var(--fill, #ff0000)"
+              stroke="var(--stroke, #000000)"
+              stroke-miterlimit="10"
+              stroke-width="var(--stroke-width, 5)"
+            />
+          </svg>
+          <select>
+            <option value="white" selected>white</option>
+            <option value="black">black</option>
+            <option value="red">red</option>
+            <option value="pink">pink</option>
+            <option value="purple">purple</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
+            <option value="yellow">yellow</option>
+            <option value="orange">orange</option>
+          </select>
+        </div>
+        <div class="capital" data-color="black">
+          <svg viewBox="0 0 278 247.8" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m2.5 9.5v235.8h273v-242.8h-54v43h-52v-43h-58.9v41h-56.1v-41h-52z"
+              fill="var(--fill, #ff0000)"
+              stroke="var(--stroke, #000000)"
+              stroke-miterlimit="10"
+              stroke-width="var(--stroke-width, 5)"
+            />
+          </svg>
+          <select>
+            <option value="white">white</option>
+            <option value="black" selected>black</option>
+            <option value="red">red</option>
+            <option value="pink">pink</option>
+            <option value="purple">purple</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
+            <option value="yellow">yellow</option>
+            <option value="orange">orange</option>
+          </select>
+        </div>
+        <div class="capital" data-color="red">
+          <svg viewBox="0 0 278 247.8" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m2.5 9.5v235.8h273v-242.8h-54v43h-52v-43h-58.9v41h-56.1v-41h-52z"
+              fill="var(--fill, #ff0000)"
+              stroke="var(--stroke, #000000)"
+              stroke-miterlimit="10"
+              stroke-width="var(--stroke-width, 5)"
+            />
+          </svg>
+          <select>
+            <option value="white">white</option>
+            <option value="black">black</option>
+            <option value="red" selected>red</option>
+            <option value="pink">pink</option>
+            <option value="purple">purple</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
+            <option value="yellow">yellow</option>
+            <option value="orange">orange</option>
+          </select>
+        </div>
+        <div class="capital" data-color="pink">
+          <svg viewBox="0 0 278 247.8" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m2.5 9.5v235.8h273v-242.8h-54v43h-52v-43h-58.9v41h-56.1v-41h-52z"
+              fill="var(--fill, #ff0000)"
+              stroke="var(--stroke, #000000)"
+              stroke-miterlimit="10"
+              stroke-width="var(--stroke-width, 5)"
+            />
+          </svg>
+          <select>
+            <option value="white">white</option>
+            <option value="black">black</option>
+            <option value="red" selected>red</option>
+            <option value="pink">pink</option>
+            <option value="purple">purple</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
+            <option value="yellow">yellow</option>
+            <option value="orange">orange</option>
+          </select>
+        </div>
+        <div class="capital" data-color="purple">
+          <svg viewBox="0 0 278 247.8" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m2.5 9.5v235.8h273v-242.8h-54v43h-52v-43h-58.9v41h-56.1v-41h-52z"
+              fill="var(--fill, #ff0000)"
+              stroke="var(--stroke, #000000)"
+              stroke-miterlimit="10"
+              stroke-width="var(--stroke-width, 5)"
+            />
+          </svg>
+          <select>
+            <option value="white">white</option>
+            <option value="black">black</option>
+            <option value="red">red</option>
+            <option value="pink">pink</option>
+            <option value="purple" selected>purple</option>
+            <option value="blue">blue</option>
+            <option value="green">green</option>
+            <option value="yellow">yellow</option>
+            <option value="orange">orange</option>
+          </select>
+        </div>
+        <div class="capital" data-color="blue">
+          <svg viewBox="0 0 278 247.8" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m2.5 9.5v235.8h273v-242.8h-54v43h-52v-43h-58.9v41h-56.1v-41h-52z"
+              fill="var(--fill, #ff0000)"
+              stroke="var(--stroke, #000000)"
+              stroke-miterlimit="10"
+              stroke-width="var(--stroke-width, 5)"
+            />
+          </svg>
+          <select>
+            <option value="white">white</option>
+            <option value="black">black</option>
+            <option value="red">red</option>
+            <option value="pink">pink</option>
+            <option value="purple">purple</option>
+            <option value="blue" selected>blue</option>
+            <option value="green">green</option>
+            <option value="yellow">yellow</option>
+            <option value="orange">orange</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div id="map"></div>
+  </body>
   <script>
-    const img = new Image();
-    img.onload = extract;
-    img.src = "./extracted/textureThumbnail_europeAdvanced.png";
-
-    /**
-     * @typedef Color
-     * @type {[r: number, g: number, b: number, a: number]}
-     */
-
-    /**
-     * @type {Array<Color>}
-     */
-    const ignoredColors = [[46, 57, 86, 255]];
-
-    /**
-     * @type {Array<{min: Color, max: Color}>}
-     */
-    const colorRanges = [
-      { min: [0, 0, 0, 255], max: [90, 90, 90, 255] },
-      { min: [170, 150, 110, 255], max: [190, 180, 160, 255] },
-    ];
-
-    /**
-     * @param {Color} color
-     */
-    function colorInRange(color) {
-      for (const ignoredColor of ignoredColors) {
-        if (
-          color[0] === ignoredColor[0] &&
-          color[1] === ignoredColor[1] &&
-          color[2] === ignoredColor[2] &&
-          color[3] === ignoredColor[3]
-        ) {
-          return false;
-        }
-      }
-      for (const { min, max } of colorRanges) {
-        if (
-          color[0] >= min[0] &&
-          color[0] <= max[0] &&
-          color[1] >= min[1] &&
-          color[1] <= max[1] &&
-          color[2] >= min[2] &&
-          color[2] <= max[2] &&
-          color[3] >= min[3] &&
-          color[3] <= max[3]
-        ) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    function extract() {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d", { willReadFrequently: true });
-      document.body.appendChild(canvas);
-
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      ctx.drawImage(img, 0, 0);
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData.data;
-
-      /**
-       * @type {Array<{x: number, y: number}>}
-       */
-      const territoryPixels = [];
-      for (let i = 0; i < data.length; i += 4) {
-        const source = [data[i], data[i + 1], data[i + 2], data[i + 3]];
-        if (!colorInRange(source)) continue;
-        const pixelIndex = i / 4;
-        const x = pixelIndex % canvas.width;
-        const y = Math.floor(pixelIndex / canvas.width);
-        territoryPixels.push({ x, y });
-      }
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // ctx.globalAlpha = 0.25;
-      // ctx.drawImage(img, 0, 0);
-      // ctx.globalAlpha = 1;
-
-      ctx.fillStyle = "crimson";
-      for (const territoryPixel of territoryPixels) {
-        ctx.fillRect(territoryPixel.x, territoryPixel.y, 1, 1);
-      }
-
-      canvas.addEventListener("pointerdown", (event) => {
-        const x = event.offsetX;
-        const y = event.offsetY;
-        const { data } = ctx.getImageData(x, y, 1, 1);
-        const color = [data[0], data[1], data[2], data[3]];
-        console.log(color);
+    const capitals = document.querySelectorAll(".capital");
+    for (const capital of capitals) {
+      const color = capital.querySelector("select");
+      color?.addEventListener("change", (event) => {
+        capital.dataset.color = event.currentTarget.value;
+      });
+      let selected = false;
+      const rect = capital.getBoundingClientRect();
+      const startX = rect.left;
+      const startY = rect.top;
+      capital.addEventListener("pointerdown", () => {
+        selected = true;
+      });
+      window.addEventListener("pointerup", () => {
+        selected = false;
+      });
+      window.addEventListener("pointermove", (event) => {
+        if (!selected) return;
+        capital.style.setProperty("--x", `${event.pageX - startX}px`);
+        capital.style.setProperty("--y", `${event.pageY - startY}px`);
+        capital.style.transform = "translate(-50%, -50%) scale(0.5)";
       });
     }
   </script>
