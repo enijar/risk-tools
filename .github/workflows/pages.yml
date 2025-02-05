@@ -30,7 +30,7 @@ jobs:
           cp -R extracted/* build/extracted/
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4.7.2
+        uses: JamesIves/github-pages-deploy-action@v4.7.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
