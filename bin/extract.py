@@ -17,9 +17,9 @@ for filename in os.listdir(input_folder):
                 img = data.image
                 if img:
                     texture_name = data.m_Name if hasattr(data, "m_Name") and data.m_Name else f"texture_{obj.path_id}"
-                    output_path = os.path.join(output_folder, f"{texture_name}.png")
-
-                    img.save(output_path)
-                    print(f"Extracted: {output_path}")
+                    if texture_name.startswith("textureThumbnail_"):
+                        output_path = os.path.join(output_folder, f"{texture_name}.png")
+                        img.save(output_path)
+                        print(f"Extracted: {output_path}")
 
 print("Extraction completed!")
