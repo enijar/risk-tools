@@ -1,4 +1,5 @@
 import React from "react";
+import * as Style from "~/pages/home/home.style";
 import Capital from "~/components/capital/capital";
 
 export default function Home() {
@@ -30,16 +31,14 @@ export default function Home() {
   }, []);
   return (
     <>
-      <div id="capitals">
-        <div>
-          <Capital color="white" />
-          <Capital color="black" />
-          <Capital color="red" />
-          <Capital color="pink" />
-          <Capital color="purple" />
-          <Capital color="blue" />
-        </div>
-      </div>
+      <Style.Capitals id="capitals">
+        <Capital color="white" />
+        <Capital color="black" />
+        <Capital color="red" />
+        <Capital color="pink" />
+        <Capital color="purple" />
+        <Capital color="blue" />
+      </Style.Capitals>
       <div id="map"></div>
     </>
   );
