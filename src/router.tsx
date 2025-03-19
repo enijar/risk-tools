@@ -13,6 +13,10 @@ export const router = createHashRouter([
         id: "home",
         path: "/",
         Component: React.lazy(() => import("~/pages/home/home")),
+        async loader() {
+          const res = await fetch("maps.json");
+          return await res.json();
+        },
       },
     ],
   },

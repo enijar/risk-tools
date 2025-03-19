@@ -13,6 +13,8 @@ type AppState = {
   moveCapital(id: number, x: number, y: number): void;
   addCapital(id: number, startX: number, startY: number): void;
   removeCapital(id: number): void;
+  resetKey: number;
+  reset(): void;
 };
 
 export const appState = create<AppState>((setState, getState) => {
@@ -41,6 +43,11 @@ export const appState = create<AppState>((setState, getState) => {
       const state = getState();
       const capitals = state.capitals.filter((capital) => capital.id !== id);
       setState({ capitals });
+    },
+    resetKey: 0,
+    reset() {
+      const state = getState();
+      setState({ resetKey: (state.resetKey + 1) % 1000 });
     },
   };
 });
