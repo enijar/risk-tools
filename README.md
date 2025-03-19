@@ -11,9 +11,12 @@ python3 -m pip install --no-cache-dir --force-reinstall unitypy
 # Install Node dependencies
 npm install
 
-# Copy Risk bundle files
+# Copy Risk bundle files (MacOS only)
 cp ~/Library/Application\ Support/Steam/steamapps/common/RISK\ Global\ Domination/RISK.app/Contents/Resources/Data/StreamingAssets/aa/StandaloneOSX/*.bundle bundles/
 
 # Extract map images
 python3 bin/extract.py
+
+# Start in dev mode
+npm start
 ```

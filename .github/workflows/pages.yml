@@ -5,8 +5,9 @@ on:
     branches:
       - main
     paths:
-      - "index.html"
-      - "extracted/**"
+      - "src/**"
+      - "public/**"
+      - "package.json"
       - ".github/workflows/pages.yml"
 
 concurrency:
@@ -14,9 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
   pages: write
   id-token: write
+  contents: read
 
 jobs:
   build:
@@ -24,20 +25,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-      - name: Upload artifact
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: |
+          npm run build
+          touch .nojekyll build/.nojekyll
+
+      - name: Upload
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: build
 
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
     needs: build
     steps:

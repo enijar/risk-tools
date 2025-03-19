@@ -2,7 +2,7 @@ import UnityPy
 import os
 
 input_folder = "bundles"
-output_folder = "extracted"
+output_folder = "public/maps"
 
 os.makedirs(output_folder, exist_ok=True)
 
