@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: import.meta.env.VITE_API_URL ?? "http://localhost:3000",
+  colors: ["white", "black", "red", "pink", "purple", "blue", "green", "yellow", "orange"],
 } as const;
 
 export default config;

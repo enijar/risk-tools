@@ -36,7 +36,7 @@ export const Reset = createGlobalStyle`
     inline-size: 100%;
     max-inline-size: 1024px;
     aspect-ratio: 1024 / 536;
-    background-image: url("../../../public/maps/textureThumbnail_europeAdvanced.png");
+    background-image: url("./maps/textureThumbnail_europeAdvanced.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50%;
