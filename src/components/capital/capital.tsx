@@ -5,7 +5,7 @@ import { appState } from "~/state/app-state";
 
 type Props = {
   id: number;
-  color: (typeof config.colors)[number];
+  color: (typeof config.colors)[number]["key"];
 };
 
 export default function Capital(props: Props) {
@@ -29,25 +29,35 @@ export default function Capital(props: Props) {
     wrapper.style.transform = "translate(-50%, -50%) scale(0.5)";
   }, [selectedCapitalId, props.id, capital]);
 
+  const [color, setColor] = React.useState(() => {
+    return config.colors.find((color) => color.key === props.color) ?? config.colors[0];
+  });
+  React.useEffect(() => {
+    const color = config.colors.find((color) => color.key === props.color);
+    if (color === undefined) return;
+    setColor(color);
+  }, [props.color]);
+
   return (
-    <Style.Wrapper
-      ref={wrapperRef}
-      data-color={props.color}
-      onPointerDown={(event) => {
-        const wrapper = event.currentTarget;
-        const state = appState.getState();
-        const capital = state.capitals.find((capital) => capital.id === props.id);
-        if (capital === undefined) return;
-        const x = event.pageX - capital.startX;
-        const y = event.pageY - capital.startY;
-        state.setSelectedCapitalId(props.id);
-        state.moveCapital(props.id, x, y);
-        wrapper.style.setProperty("--x", `${x}px`);
-        wrapper.style.setProperty("--y", `${y}px`);
-        wrapper.style.transform = "translate(-50%, -50%) scale(0.5)";
-      }}
-    >
-      <svg viewBox="0 0 278 247.8" xmlns="http://www.w3.org/2000/svg">
+    <Style.Wrapper ref={wrapperRef} style={{ "--fill": color.value } as React.CSSProperties}>
+      <svg
+        viewBox="0 0 278 247.8"
+        xmlns="http://www.w3.org/2000/svg"
+        onPointerDown={(event) => {
+          const wrapper = wrapperRef.current;
+          if (wrapper === null) return;
+          const state = appState.getState();
+          const capital = state.capitals.find((capital) => capital.id === props.id);
+          if (capital === undefined) return;
+          const x = event.pageX - capital.startX;
+          const y = event.pageY - capital.startY;
+          state.setSelectedCapitalId(props.id);
+          state.moveCapital(props.id, x, y);
+          wrapper.style.setProperty("--x", `${x}px`);
+          wrapper.style.setProperty("--y", `${y}px`);
+          wrapper.style.transform = "translate(-50%, -50%) scale(0.5)";
+        }}
+      >
         <path
           d="m2.5 9.5v235.8h273v-242.8h-54v43h-52v-43h-58.9v41h-56.1v-41h-52z"
           fill="var(--fill, #ff0000)"
@@ -56,11 +66,18 @@ export default function Capital(props: Props) {
           strokeWidth="var(--stroke-width, 5)"
         />
       </svg>
-      <select defaultValue={props.color}>
+      <select
+        value={color.key}
+        onChange={(event) => {
+          const color = config.colors.find((color) => color.key === event.currentTarget.value);
+          if (color === undefined) return;
+          setColor(color);
+        }}
+      >
         {config.colors.map((color) => {
           return (
-            <option key={color} value={color}>
-              {color}
+            <option key={color.key} value={color.key}>
+              {color.key}
             </option>
           );
         })}
